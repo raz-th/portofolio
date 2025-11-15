@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
-import { IoCodeSlash } from "react-icons/io5";
+import { IoCodeSlash, IoTerminalOutline } from "react-icons/io5";
 import "./App.css"
 import TypingEffect from "./Components/TypingEffect";
 import { PiDesktopLight } from "react-icons/pi";
 import { CiServer, CiMobile2 } from "react-icons/ci";
-import { IoTerminalOutline } from "react-icons/io5";
+import { IoMenu } from "react-icons/io5";
 
 
 
@@ -18,21 +18,79 @@ const SkillCard = ({ title, num, lista = [] }) => {
       <IconComp size={50} color="#00F0FF" />
 
       <h3>{title}</h3>
-      <br/>
+      <br />
       <div className="skillEnum">
         {
           lista.map((v, _) => <p>{v}</p>)
         }
       </div>
-            <br/>
+      <br />
     </div>
+  )
+}
+
+const ProjectCard = ({ title, num = 0, description, lista = [] }) => {
+  const icons = [PiDesktopLight, CiServer, CiMobile2, IoTerminalOutline];
+  const IconComp = icons[num]
+
+  return (
+    <div className="projectCard card">
+      <div className="imgP">
+        <IconComp size={100} color="#000" />
+      </div>
+      <div className="continut">
+        <h3>title</h3>
+        <br />
+        <p>Proident velit et ullamco id. Sint deserunt qui ullamco in ex do voluptate sit sint est nulla. Velit mollit occaecat aliqua eiusmod do. Eiusmod qui qui eu laboris ad eiusmod incididunt velit qui exercitation. Deserunt mollit minim commodo culpa non occaecat nulla quis exercitation cillum dolor duis. Velit Lorem veniam Lorem aute. Voluptate fugiat et commodo reprehenderit amet.</p>
+      </div>
+    </div>
+  )
+}
+
+const FormContact = () => {
+  return (
+    <form>
+      <div class="form__group field">
+        <input type="input" class="form__field" placeholder="Name" required="" />
+        <label for="name" class="form__label">Your Name</label>
+      </div>
+      <div class="form__group field">
+        <input type="input" class="form__field" placeholder="Name" required="" />
+        <label for="name" class="form__label">Email Address</label>
+      </div>
+      <div class="form__group field">
+        <textarea class="form__field" placeholder="Name" required="" />
+        <label for="name" class="form__label">Your Message</label>
+      </div>
+      <br />
+      <div className="btnContainer">
+        <button class="button">
+          <span class="text">send message</span>
+        </button>
+      </div>
+    </form>
   )
 }
 
 
 export default function App() {
   const [init, setInit] = useState(false);
-  const [typingValue, setTypingValue] = useState("")
+  const [showMenu, setShowMenu] = useState(false)
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const homeRef = useRef(null);
+  const abtMeRef = useRef(null);
+  const skillRef = useRef(null);
+  const projectRef = useRef(null);
+  const contactRef = useRef(null);
+
+  const handleScroll = (e) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.target;
+    const position = Math.ceil(
+      (scrollTop / (scrollHeight - clientHeight)) * 100
+    );
+    setScrollPosition(position);
+    console.log(position)
+  };
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -101,16 +159,6 @@ export default function App() {
     [],
   );
 
-  const text = "Website Development"
-  useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      setTypingValue(text.slice(0, text + 1));
-      index++;
-      if (index === text.length) clearInterval(interval)
-    }, 100);
-    return () => clearInterval(interval)
-  }, [text])
 
   const myWords = [
     "Website Development",
@@ -121,17 +169,39 @@ export default function App() {
 
   if (init) {
     return (
-      <div className="App">
+      <div className="App" onScroll={handleScroll}>
         <nav>
-          <div>
-            <p>Home</p>
-            <p>About</p>
-            <p>Skills</p>
-            <p>Projects</p>
-            <p>Contact</p>
+          <ol className="navList" style={{ listStyle: 'none' }} >
+            <li onClick={()=>homeRef.current.scrollIntoView({block: "center"})}>Home</li>
+            <li onClick={()=>abtMeRef.current.scrollIntoView({block: "center"})}>About Me</li>
+            <li onClick={()=>skillRef.current.scrollIntoView({block: "center"})}>Skills</li>
+            <li onClick={()=>projectRef.current.scrollIntoView({block: "center"})}>Projects</li>
+            <li onClick={()=>contactRef.current.scrollIntoView({block: "center"})}>Contact</li>
+          </ol>
+          <div className="scrollbar">
+            <div className="aiaDinScrollBar" style={{ width: `${scrollPosition}%` }} />
           </div>
         </nav>
-        <section className="hero">
+        <nav className="navMobile">
+          <div>
+            <IoMenu size={30} onClick={()=>setShowMenu((e)=>!e)}/>
+          </div>
+          <div className="scrollbar">
+            <div className="aiaDinScrollBar" style={{ width: `${scrollPosition}%` }} />
+          </div>
+          {
+            showMenu && (<div className="navMobileDrop">
+            <ol style={{ listStyle: 'none' }} >
+              <li onClick={()=>{setShowMenu((e)=>!e); homeRef.current.scrollIntoView({block: "center"})}}>Home</li>
+              <li onClick={()=>{setShowMenu((e)=>!e); abtMeRef.current.scrollIntoView({block: "center"})}}>About Me</li>
+              <li onClick={()=>{setShowMenu((e)=>!e); skillRef.current.scrollIntoView({block: "center"})}}>Skills</li>
+              <li onClick={()=>{setShowMenu((e)=>!e); projectRef.current.scrollIntoView({block: "center"})}}>Projects</li>
+              <li onClick={()=>{setShowMenu((e)=>!e); contactRef.current.scrollIntoView({block: "center"})}}>Contact</li>
+            </ol>
+          </div>)
+          }
+        </nav>
+        <section className="hero" ref={homeRef}>
           <Particles
             id="tsparticles"
             particlesLoaded={particlesLoaded}
@@ -158,7 +228,7 @@ export default function App() {
           </div>
         </section>
         <br /><br /><br /><br /><br />
-        <section className="abtMe">
+        <section className="abtMe" ref={abtMeRef}>
           <h2 className="abtMe_title">About <span>Me</span></h2><div className="line" />
           <br /><br />
           <div className="abtMe_cont">
@@ -192,7 +262,7 @@ export default function App() {
           </div>
         </section>
         <br /><br /><br /><br /><br />
-        <section className="abtMe">
+        <section className="abtMe" ref={skillRef}>
           <h2 className="abtMe_title">Technical <span>Skills</span></h2><div className="line" />
           <br /><br />
           <div className="skill_det">
@@ -200,9 +270,26 @@ export default function App() {
             <SkillCard title={"Backend/API"} num={1} lista={["Node.js", "Express", "REST", "Firebase", "Python"]} />
             <SkillCard title={"Mobile"} num={2} lista={["React Native", "Expo", "Android", "iOS"]} />
             <SkillCard title={"Cloud & DB"} num={3} lista={["Firestore", "Google Could"]} />
-
-
           </div>
+        </section>
+        <br /><br /><br /><br /><br />
+        <section className="abtMe" ref={projectRef}>
+          <h2 className="abtMe_title">My <span>Projects</span></h2><div className="line" />
+          <br /><br />
+          <div className="project_det">
+            <ProjectCard />
+            <ProjectCard num={1} />
+            <ProjectCard num={2} />
+            <ProjectCard />
+            <ProjectCard num={1} />
+            <ProjectCard num={2} />
+          </div>
+        </section>
+        <br /><br /><br /><br /><br />
+        <section className="abtMe" ref={contactRef}>
+          <h2 className="abtMe_title">Get In <span>Touch</span></h2><div className="line" />
+          <br /><br />
+          <FormContact />
         </section>
         <br /><br /><br /><br />
       </div>
