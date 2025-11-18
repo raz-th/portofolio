@@ -186,11 +186,12 @@ nav .navList {
 }
 
 .abtMe .line {
-  width: 5rem;
+  width: 20rem;
   height: .25rem;
   margin-top: 10px;
-  background: #00F0FF;
-  background: linear-gradient(90deg, rgba(0, 240, 255, 1) 0%, rgba(0, 255, 157, 1) 100%);
+  margin-bottom: 20px;
+background: #2A7B9B;
+background: linear-gradient(90deg, rgba(42, 123, 155, 0) 0%, rgba(8, 218, 237, 1) 35%, rgba(0, 240, 255, 1) 50%, rgba(40, 237, 226, 1) 65%, rgba(237, 221, 83, 0) 100%);
 }
 
 .abtMe_title span {
@@ -242,17 +243,21 @@ nav .navList {
 
 .skill_det {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(1, 1fr);
-  gap: 9px;
+  gap: 1rem 2rem;
+
   width: 70%;
   color: #fff;
 }
 
 .skillEnum {
-  display: flex;
-  justify-content: space-evenly;
+  list-style-type: disc;
+  
   /* background-color: #00F0FF; */
+}
+.skillEnum li::marker{
+  color: #00F0FF;
 }
 
 /* projects */
@@ -359,6 +364,23 @@ textarea.form__field {
 .form__field:required,
 .form__field:invalid {
   box-shadow: none;
+}
+
+.langCard{
+  border: #00eeff30 1px solid;
+  border-radius: 15px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; 
+  transition: .2s;
+}
+
+.langCard:hover{
+  background-color: rgba(0, 0, 0, 0.228);
+  transform: scale(1.05);
 }
 
 /* From Uiverse.io by Carlos-vargs */
@@ -498,9 +520,18 @@ form {
   }
 
   .skill_det {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
     width: 96%;
+    gap: 1rem 1rem;
+  }
+  .skill_det svg{
+    height: 20px;
+    width: 20px;
+  }
+  .langCard{
+    font-size: .5rem;
+    padding: 1rem;
   }
 
   .project_det {
