@@ -24,7 +24,7 @@ nav {
   -webkit-backdrop-filter: blur(10.2px);
 }
 
-.navMobile{
+.navMobile {
   display: none;
 }
 
@@ -70,7 +70,7 @@ nav .navList {
   height: 100dvh;
   width: 100dvw;
   overflow-x: hidden;
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 .App::-webkit-scrollbar {
@@ -190,8 +190,8 @@ nav .navList {
   height: .25rem;
   margin-top: 10px;
   margin-bottom: 20px;
-background: #2A7B9B;
-background: linear-gradient(90deg, rgba(42, 123, 155, 0) 0%, rgba(8, 218, 237, 1) 35%, rgba(0, 240, 255, 1) 50%, rgba(40, 237, 226, 1) 65%, rgba(237, 221, 83, 0) 100%);
+  background: #2A7B9B;
+  background: linear-gradient(90deg, rgba(42, 123, 155, 0) 0%, rgba(8, 218, 237, 1) 35%, rgba(0, 240, 255, 1) 50%, rgba(40, 237, 226, 1) 65%, rgba(237, 221, 83, 0) 100%);
 }
 
 .abtMe_title span {
@@ -225,6 +225,13 @@ background: linear-gradient(90deg, rgba(42, 123, 155, 0) 0%, rgba(8, 218, 237, 1
   display: flex;
   justify-content: center;
   padding: 1rem;
+  padding-top: 3rem;
+  display: flex;
+  justify-content: start;
+  gap: 20px;
+  /* justify-content: space-evenly; */
+  /* height: 100%; */
+  /* background-color: red; */
 }
 
 .abtMe_det {
@@ -253,10 +260,11 @@ background: linear-gradient(90deg, rgba(42, 123, 155, 0) 0%, rgba(8, 218, 237, 1
 
 .skillEnum {
   list-style-type: disc;
-  
+
   /* background-color: #00F0FF; */
 }
-.skillEnum li::marker{
+
+.skillEnum li::marker {
   color: #00F0FF;
 }
 
@@ -270,14 +278,14 @@ background: linear-gradient(90deg, rgba(42, 123, 155, 0) 0%, rgba(8, 218, 237, 1
   row-gap: 30px;
   width: 70%;
   color: #fff;
-  
+
 }
 
 .projectCard {
   padding: 0;
   border: none;
   padding-bottom: 4rem;
-  position:relative;
+  position: relative;
 }
 
 .projectCard .continut {
@@ -375,7 +383,7 @@ textarea.form__field {
   box-shadow: none;
 }
 
-.langCard{
+.langCard {
   border: #00eeff30 1px solid;
   border-radius: 15px;
   padding: 1.5rem;
@@ -383,11 +391,11 @@ textarea.form__field {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px; 
+  gap: 10px;
   transition: .2s;
 }
 
-.langCard:hover{
+.langCard:hover {
   background-color: rgba(0, 0, 0, 0.228);
   transform: scale(1.05);
 }
@@ -452,7 +460,7 @@ form {
   }
 }
 
-.navMobileDrop{
+.navMobileDrop {
   display: none;
   background-color: #111827;
   width: 100%;
@@ -461,7 +469,8 @@ form {
   bottom: -250px;
   left: 0;
 }
-.navMobileDrop ol{
+
+.navMobileDrop ol {
   padding: 5px;
   display: flex;
   gap: 10px;
@@ -470,7 +479,7 @@ form {
 
 
 
-.navMobileDrop li{
+.navMobileDrop li {
   padding: 10px;
   width: 100vw;
 }
@@ -480,12 +489,13 @@ form {
   nav:first-child {
     display: none;
   }
-  .navMobile{
+
+  .navMobile {
     display: flex;
     border-radius: 0;
   }
 
-  .navMobileDrop{
+  .navMobileDrop {
     display: flex;
   }
 
@@ -534,11 +544,13 @@ form {
     width: 96%;
     gap: 1rem 1rem;
   }
-  .skill_det svg{
+
+  .skill_det svg {
     height: 20px;
     width: 20px;
   }
-  .langCard{
+
+  .langCard {
     font-size: .5rem;
     padding: 1rem;
   }

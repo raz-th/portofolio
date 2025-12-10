@@ -135,7 +135,7 @@ const ProjectCard = ({ data, num = 0 }) => {
           }}
           href={data.github}
         >
-          <IoLogoGithub/>
+          <IoLogoGithub />
           Github
         </a>
       </div>
@@ -281,14 +281,6 @@ export default function App() {
     []
   );
 
-  const projects = [
-    {
-      title: "Online store",
-      link: "flower-portofoliu-project.netlify.app",
-      description:
-        "A fully functional e-commerce website concept for a boutique flower shop. This project features a complete user journey, from browsing products and adding items to a cart to a simulated checkout process.",
-    },
-  ];
 
   const myWords = [
     "Website Development",
@@ -444,25 +436,30 @@ export default function App() {
 
           <div className="abtMe_cont">
             <div className="abtMe_para card">
+              <h2>
+                Full-Stack Developer & UX-Focused Engineer
+              </h2>
               <p>
-                &nbsp;&nbsp;&nbsp;I’m a programmer with four years of experience
-                developing applications across web, mobile, and desktop
-                environments. I specialize in JavaScript technologies, working
-                extensively with Node.js, React, Express.js, and React Native
-                (Expo) to build clean, scalable, and high-performing
-                applications. Whether I’m creating a mobile app, designing a
-                dynamic web interface, or developing a backend service, I focus
-                on writing efficient code and delivering seamless user
-                experiences.
-                <br /> <br /> &nbsp;&nbsp;&nbsp;Beyond web and mobile
-                development, I enjoy building desktop applications in C#, as
-                well as creating servers and automation tools using JavaScript
-                and Python. I’m passionate about crafting user-friendly
-                interfaces and thoughtful design flows, ensuring that the
-                software I build feels intuitive and enjoyable to use. I’m
-                always exploring new technologies, refining my skills, and
-                looking for opportunities to solve meaningful problems through
-                code and design.
+                I am a highly versatile programmer with <b>four years of dedicated experience</b> in building clean, scalable, and intuitive applications across web, mobile, and desktop environments.
+              </p>
+
+              <h3 style={{ marginTop: '1.5rem', marginBottom: '0.5rem' }}>
+                Core Specializations
+              </h3>
+              <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+                <li>
+                  <b>Full-Stack JavaScript:</b> Node.js, Express.js, and React for high-performing APIs and dynamic web interfaces.
+                </li>
+                <li>
+                  <b>Cross-Platform Mobile:</b> React Native (Expo) for efficient delivery of high-quality mobile applications.
+                </li>
+                <li>
+                  <b>Versatile Engineering:</b> Extending my skills to develop robust desktop applications using <b>C#</b> and custom automation tools and server maintenance with <b>Node.js</b>.
+                </li>
+              </ul>
+
+              <p style={{ marginTop: '1.5rem' }}>
+                My focus is always on <b>thoughtful design flows and optimizing performance</b>, ensuring that the software I build is intuitive and genuinely enjoyable to use. I am constantly exploring new technologies and committed to solving meaningful problems through code and design.
               </p>
             </div>
             <div className="abtMe_det">
