@@ -264,20 +264,29 @@ background: linear-gradient(90deg, rgba(42, 123, 155, 0) 0%, rgba(8, 218, 237, 1
 
 .project_det {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 9px;
+  grid-template-columns: repeat(2, 1fr);
+  /* grid-template-rows: repeat(2, 1fr); */
+  gap: 20px;
+  row-gap: 30px;
   width: 70%;
   color: #fff;
+  
 }
 
 .projectCard {
   padding: 0;
   border: none;
+  padding-bottom: 4rem;
+  position:relative;
 }
 
 .projectCard .continut {
   padding: 1rem;
+}
+
+.projectCard .continut li {
+  margin-left: 50px;
+  list-style-type: disc;
 }
 
 .projectCard .imgP {

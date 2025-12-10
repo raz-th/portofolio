@@ -21,6 +21,8 @@ import { CiServer, CiMobile2 } from "react-icons/ci";
 import { IoMenu } from "react-icons/io5";
 import { IoLogoJavascript } from "react-icons/io5";
 import { SiExpo, SiExpress } from "react-icons/si";
+import { getProiecte } from "./firebase";
+import { MdOutlineOpenInNew } from "react-icons/md";
 
 const SkillCard = ({ title, num, lista = [] }) => {
   const icons = [PiDesktopLight, CiServer, CiMobile2, IoTerminalOutline];
@@ -41,26 +43,101 @@ const SkillCard = ({ title, num, lista = [] }) => {
   );
 };
 
-const ProjectCard = ({ title, num = 0, description, lista = [] }) => {
+const con = `&ensp;This project is a sophisticated e-commerce webstore built as a robust Single Page Application (SPA). 
+  It serves as a comprehensive portfolio piece demonstrating the full range of skills required for modern online retail development. 
+  Hosted on Netlify, the application delivers a seamless and highly responsive user experience, allowing customers to easily browse 
+  a product catalog, utilize a dynamic shopping cart, and complete a secure checkout process. The project focuses on handling complex 
+  transactional logic and providing an aesthetically pleasing, nature-inspired design.
+          <br/>&ensp;
+          +*Key Features:*+
+          <ol>
+            <li>*Dynamic Product Catalog:* Implements data-driven display of various floral categories and arrangements, featuring detailed product pages and high-resolution imagery.</li>
+            <li>*Full Shopping Cart Flow:* Provides complete transactional logic for adding, removing, and updating product quantities before purchase finalization.</li>
+            <li>*Responsive Checkout:* Features a clear, multi-step process for secure order placement, capturing customer and shipping information reliably.</li>
+            <li>*Intuitive UI/UX:* A clean, flower-themed design optimized for easy navigation, product visualization, and smooth interactivity across all devices.</li>
+          </ol>
+          `;
+const techT = [
+  "*Deployment:* Netlify for fast, globally distributed hosting and Continuous Integration/Continuous Deployment (CI/CD).",
+  "*Frontend:* Modern JavaScript Framework/Library (React)",
+  "*Backend & Database:* Google Firebase (specifically Firestore for data persistence and Authentication for user management).",
+  "*Deployment & Hosting:* Netlify (Leverages CI/CD for reliable and high-speed global delivery).",
+];
+
+const TranslateIntoHtml = ({ c }) => {
+  let regexBold = /\*(.*?)\*/g;
+  let regexH3 = /\+(.*?)\+/g;
+
+  const htmlString = c
+    .replace(regexH3, "<h3>$1</h3>")
+    .replace(regexBold, "<b>$1</b>");
+
+  return <div dangerouslySetInnerHTML={{ __html: htmlString }} />;
+};
+
+const ProjectCard = ({ data, num = 0 }) => {
   const icons = [PiDesktopLight, CiServer, CiMobile2, IoTerminalOutline];
   const IconComp = icons[num];
 
   return (
     <div className="projectCard card">
-      <div className="imgP">
+      <div className="imgP" >
         <IconComp size={100} color="#000" />
       </div>
       <div className="continut">
-        <h3>title</h3>
+        <h2>{data.title}</h2>
         <br />
-        <p>
-          Proident velit et ullamco id. Sint deserunt qui ullamco in ex do
-          voluptate sit sint est nulla. Velit mollit occaecat aliqua eiusmod do.
-          Eiusmod qui qui eu laboris ad eiusmod incididunt velit qui
-          exercitation. Deserunt mollit minim commodo culpa non occaecat nulla
-          quis exercitation cillum dolor duis. Velit Lorem veniam Lorem aute.
-          Voluptate fugiat et commodo reprehenderit amet.
-        </p>
+        {<TranslateIntoHtml c={data.description} />}
+        <h3>
+          <b>Technical Highlights:</b>
+        </h3>
+        <ol>
+          {data?.tehno?.map((v, i) => {
+            return <li key={i}>{<TranslateIntoHtml c={v} />}</li>;
+          })}
+        </ol>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          gap: 20,
+          position: "absolute",
+          bottom: 30,
+          left: 30,
+        }}
+      >
+        <a
+          href={data.link}
+          style={{
+            color: "#00F0FF",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            textDecoration: "none",
+            gap: 5,
+            fontWeight: 900,
+            fontSize: 20,
+          }}
+        >
+          <MdOutlineOpenInNew />
+          Live Demo
+        </a>
+        <a
+          style={{
+            color: "#919191ff",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            textDecoration: "none",
+            gap: 5,
+            fontWeight: 900,
+            fontSize: 20,
+          }}
+          href={data.github}
+        >
+          <IoLogoGithub/>
+          Github
+        </a>
       </div>
     </div>
   );
@@ -69,38 +146,38 @@ const ProjectCard = ({ title, num = 0, description, lista = [] }) => {
 const FormContact = () => {
   return (
     <form>
-      <div class="form__group field">
+      <div className="form__group field">
         <input
           type="input"
-          class="form__field"
+          className="form__field"
           placeholder="Name"
           required=""
         />
-        <label for="name" class="form__label">
+        <label for="name" className="form__label">
           Your Name
         </label>
       </div>
-      <div class="form__group field">
+      <div className="form__group field">
         <input
           type="input"
-          class="form__field"
+          className="form__field"
           placeholder="Name"
           required=""
         />
-        <label for="name" class="form__label">
+        <label for="name" className="form__label">
           Email Address
         </label>
       </div>
-      <div class="form__group field">
-        <textarea class="form__field" placeholder="Name" required="" />
-        <label for="name" class="form__label">
+      <div className="form__group field">
+        <textarea className="form__field" placeholder="Name" required="" />
+        <label for="name" className="form__label">
           Your Message
         </label>
       </div>
       <br />
       <div className="btnContainer">
-        <button class="button">
-          <span class="text">send message</span>
+        <button className="button">
+          <span className="text">send message</span>
         </button>
       </div>
     </form>
@@ -117,13 +194,15 @@ export default function App() {
   const projectRef = useRef(null);
   const contactRef = useRef(null);
 
+  const [proiecte, setProiecte] = useState(null);
+
   const handleScroll = (e) => {
     const { scrollTop, scrollHeight, clientHeight } = e.target;
     const position = Math.ceil(
       (scrollTop / (scrollHeight - clientHeight)) * 100
     );
     setScrollPosition(position);
-    console.log(position);
+    // console.log(position);getProiecte
   };
 
   useEffect(() => {
@@ -135,8 +214,17 @@ export default function App() {
   }, []);
 
   const particlesLoaded = (container) => {
-    console.log(container);
+    // console.log(container);
   };
+
+  useEffect(() => {
+    getProiecte()
+      .then((v) => {
+        setProiecte(v);
+        console.log({ v });
+      })
+      .catch((v) => console.error(v));
+  }, []);
 
   const options = useMemo(
     () => ({
@@ -403,10 +491,11 @@ export default function App() {
                 </p>
               </div>
               <div className="abtMe_card card">
-                <IoTerminalOutline  size={45} color="#00F0FF" />
-                <h3>Cloud Services & Databases  </h3>
+                <IoTerminalOutline size={45} color="#00F0FF" />
+                <h3>Cloud Services & Databases </h3>
                 <p>
-                  Firestore, Google Cloud — managing cloud-hosted databases, authentication, and scalable infrastructure.
+                  Firestore, Google Cloud — managing cloud-hosted databases,
+                  authentication, and scalable infrastructure.
                 </p>
               </div>
             </div>
@@ -483,22 +572,21 @@ export default function App() {
         <br />
         <br />
         <br />
-        <section className="abtMe" ref={projectRef}>
-          <h2 className="abtMe_title">
-            My <span>Projects</span>
-          </h2>
-          <div className="line" />
-          <br />
-          <br />
-          <div className="project_det">
-            <ProjectCard />
-            <ProjectCard num={1} />
-            <ProjectCard num={2} />
-            <ProjectCard />
-            <ProjectCard num={1} />
-            <ProjectCard num={2} />
-          </div>
-        </section>
+        {proiecte && (
+          <section className="abtMe" ref={projectRef}>
+            <h2 className="abtMe_title">
+              My <span>Projects</span>
+            </h2>
+            <div className="line" />
+            <br />
+            <br />
+            <div className="project_det">
+              {proiecte.map((v, i) => {
+                return <ProjectCard data={v} />;
+              })}
+            </div>
+          </section>
+        )}
         <br />
         <br />
         <br />
